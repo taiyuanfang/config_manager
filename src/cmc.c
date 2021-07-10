@@ -26,12 +26,13 @@
 #include <config_manager.h>
 //------------------------------------------------------------------------------
 static void usage(void) {
-    fprintf(stdout, "\nvxpath r [xml file] [xpath]\n");
-    fprintf(stdout, "ex:   #./vxpath w /mnt/mtd/config.xml /root/General/DefaultIP\n");
-    fprintf(stdout, "       192.168.126\n\r\n\r");
-
-    fprintf(stdout, "vxpath w [xml file] [xpath] [value]\n");
-    fprintf(stdout, "ex:   #./vxpath w /mnt/mtd/config.xml /root/General/DefaultIP 192.168.1.26\n\n");
+    fprintf(stdout, "\n");
+    fprintf(stdout, "cmc set [config file] [xpath] [value]\n");
+    fprintf(stdout, "ex:   #./cmc set /mnt/mtd/config.xml /root/General/DefaultIP 192.168.1.26\n\n");
+    fprintf(stdout, "\n");
+    fprintf(stdout, "cmc get [config file] [xpath]\n");
+    fprintf(stdout, "ex:   #./cmc get /mnt/mtd/config.xml /root/General/DefaultIP\n");
+    fprintf(stdout, "       192.168.126\n\n");
 }
 //------------------------------------------------------------------------------
 int main(int argc, char*argv[]) {

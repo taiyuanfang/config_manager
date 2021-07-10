@@ -241,7 +241,6 @@ int cmc_set_int(const char *filename, const char *xpath, const int val) {
 
     memset(&req, 0x0, sizeof(req));
     req.cmd = CM_REQ_SET_INT;
-    //strcpy(req.filename, filename);
     realpath(filename, req.filename);
     strcpy(req.xpath, xpath);
     req.value.i = val;
@@ -285,7 +284,7 @@ int cmc_reload(const char *filename) {
     memset(&req, 0x0, sizeof(req));
     req.cmd = CM_REQ_RELOAD;
     if (filename)
-        strcpy(req.filename, filename);
+        realpath(filename, req.filename);
 
     ret = send_req(fd, &req, &res);
     close(fd);
@@ -305,7 +304,7 @@ int cmc_close(const char *filename) {
     memset(&req, 0x0, sizeof(req));
     req.cmd = CM_REQ_CLOSE;
     if (filename)
-        strcpy(req.filename, filename);
+        realpath(filename, req.filename);
 
     ret = send_req(fd, &req, &res);
     close(fd);
@@ -325,7 +324,7 @@ int cmc_save(const char *filename) {
     memset(&req, 0x0, sizeof(req));
     req.cmd = CM_REQ_SAVE;
     if (filename)
-        strcpy(req.filename, filename);
+        realpath(filename, req.filename);
 
     ret = send_req(fd, &req, &res);
     close(fd);

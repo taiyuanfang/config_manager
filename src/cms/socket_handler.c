@@ -21,7 +21,7 @@
  */
 
 #define DEBUG_MODULE "cms::socket_handler"
-#define DEBUG_LEVEL 5
+#define DEBUG_LEVEL 7
 
 #include <string.h>
 #include <stdio.h>
@@ -102,6 +102,7 @@ static int get_realpath(const char *filename, char *rpath) {
         LOGT("rpath=%s\n", rpath);
         return 0;
     }
+    LOGT("access(%s, F_OK) != 0\n", filename);
     return -1;
 }
 //------------------------------------------------------------------------------
