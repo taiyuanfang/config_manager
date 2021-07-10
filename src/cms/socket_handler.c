@@ -21,7 +21,7 @@
  */
 
 #define DEBUG_MODULE "cms::socket_handler"
-#define DEBUG_LEVEL 7
+#define DEBUG_LEVEL 5
 
 #include <string.h>
 #include <stdio.h>

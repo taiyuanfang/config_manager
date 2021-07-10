@@ -159,46 +159,68 @@ int cmc_get(const char *filename, const char *xpath, char *str, const char *defa
     realpath(filename, req.filename);
     strcpy(req.xpath, xpath);
 
-    if (default_value && default_value[0])
-        strcpy(req.value.s, default_value);
-
     if (0 == send_req(fd, &req, &res)) {
         strcpy(str, res.value.s);
+        ret = 0;
     } else {
-        if (default_value && default_value[0])
+        if (default_value && default_value[0]) {
             strcpy(str, default_value);
+            ret = 0;
+        } else {
+            ret = -1;
+        }
     }
 
     close(fd);
     return ret;
 }
 //------------------------------------------------------------------------------
-int cmc_get_int(const char *filename, const char *xpath, int default_value) {
-    int ret = -1;
-    char tmp[16] = {0};
-    char default_value_str[16] = {0};
+int cmc_get_int(const char *filename, const char *xpath, const int default_value) {
+    int fd = -1;
+    int ret = 0;
+    cm_req_t req;
+    cm_res_t res;
 
-    sprintf(default_value_str, "%d", default_value);
-    ret = cmc_get(filename, xpath, tmp, default_value_str);
-    if ((ret != 0) || (0 == tmp[0])) {
-        sprintf(tmp, "%d", default_value);
-    }
+    if (!filename || !xpath)
+        return -1;
 
-    return (int)strtol(tmp, NULL, 0);
+    fd = create_connection();
+    if (fd < 0)
+        return -1;
+
+    memset(&req, 0x0, sizeof(req));
+    req.cmd = CM_REQ_GET_INT;
+    realpath(filename, req.filename);
+    strcpy(req.xpath, xpath);
+
+    ret = (0 == send_req(fd, &req, &res) ? res.value.i : default_value);
+
+    close(fd);
+    return ret;
 }
 //------------------------------------------------------------------------------
-int cmc_get_hex(const char *filename, const char *xpath, int default_value) {
-    int ret = -1;
-    char tmp[16] = {0};
-    char default_value_str[16] = {0};
+double cmc_get_f(const char *filename, const char *xpath, const double default_value) {
+    int fd = -1;
+    double ret = 0;
+    cm_req_t req;
+    cm_res_t res;
 
-    sprintf(default_value_str, "0x%08X", default_value);
-    ret = cmc_get(filename, xpath, tmp, default_value_str);
-    if ((ret != 0) || (0 == tmp[0])) {
-        sprintf(tmp, "0x%08X", default_value);
-    }
+    if (!filename || !xpath)
+        return -1;
 
-    return (int)strtol(tmp, NULL, 16);
+    fd = create_connection();
+    if (fd < 0)
+        return -1;
+
+    memset(&req, 0x0, sizeof(req));
+    req.cmd = CM_REQ_GET_INT;
+    realpath(filename, req.filename);
+    strcpy(req.xpath, xpath);
+
+    ret = (0 == send_req(fd, &req, &res) ? res.value.d : default_value);
+
+    close(fd);
+    return ret;
 }
 //------------------------------------------------------------------------------
 int cmc_set(const char *filename, const char *xpath, const char *str) {
@@ -226,7 +248,7 @@ int cmc_set(const char *filename, const char *xpath, const char *str) {
     return ret;
 }
 //------------------------------------------------------------------------------
-int cmc_set_int(const char *filename, const char *xpath, const int val) {
+int cmc_set_i(const char *filename, const char *xpath, const int val) {
     int fd = -1;
     int ret = 0;
     cm_req_t req;
@@ -244,6 +266,29 @@ int cmc_set_int(const char *filename, const char *xpath, const int val) {
     realpath(filename, req.filename);
     strcpy(req.xpath, xpath);
     req.value.i = val;
+    ret = send_req(fd, &req, &res);
+    close(fd);
+    return ret;
+}
+//------------------------------------------------------------------------------
+int cmc_set_f(const char *filename, const char *xpath, const double val) {
+    int fd = -1;
+    int ret = 0;
+    cm_req_t req;
+    cm_res_t res;
+
+    if (!filename || !xpath)
+        return -1;
+
+    fd = create_connection();
+    if (fd < 0)
+        return -1;
+
+    memset(&req, 0x0, sizeof(req));
+    req.cmd = CM_REQ_SET_DOUBLE;
+    realpath(filename, req.filename);
+    strcpy(req.xpath, xpath);
+    req.value.d = val;
     ret = send_req(fd, &req, &res);
     close(fd);
     return ret;

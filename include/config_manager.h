@@ -25,20 +25,15 @@
 //------------------------------------------------------------------------------
 #define CM_VAL_BUF_LEN 256
 //------------------------------------------------------------------------------
-int uds_open_tcp(int nonblock);
-int uds_listen(int fd, int max_conn);
-int uds_connect(int fd, const char *uds_path);
-int uds_send(int fd, const void *msg, int len);
-int uds_recv(int fd, void *buf, int len);
-//------------------------------------------------------------------------------
-int cmc_set(const char *filename, const char *xpath, const char *str);
-int cmc_set_int(const char *filename, const char *xpath, const int val);
-int cmc_get(const char *filename, const char *xpath, char *str, const char *default_value);
-int cmc_get_int(const char *filename, const char *xpath, int default_value);
-int cmc_get_hex(const char *filename, const char *xpath, int default_value);
-int cmc_ping(void);
-int cmc_reload(const char *filename);
-int cmc_close(const char *filename);
-int cmc_save(const char *filename);
+int    cmc_set(const char *filename, const char *xpath, const char *str);
+int    cmc_set_i(const char *filename, const char *xpath, const int val);
+int    cmc_set_f(const char *filename, const char *xpath, const double val);
+int    cmc_get(const char *filename, const char *xpath, char *str, const char *default_value);
+int    cmc_get_i(const char *filename, const char *xpath, const int default_value);
+double cmc_get_f(const char *filename, const char *xpath, const  double default_value);
+int    cmc_ping(void);
+int    cmc_reload(const char *filename);
+int    cmc_close(const char *filename);
+int    cmc_save(const char *filename);
 //------------------------------------------------------------------------------
 #endif

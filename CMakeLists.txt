@@ -48,3 +48,12 @@ add_executable(${TARGET_NAME}
 target_link_libraries (${TARGET_NAME}
     config_manager
 )
+
+
+set(TARGET_NAME "example")
+add_executable(${TARGET_NAME}
+    example/main.c
+)
+target_link_libraries (${TARGET_NAME}
+    config_manager
+)

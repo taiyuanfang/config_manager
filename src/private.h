@@ -63,6 +63,12 @@ typedef struct {
 //------------------------------------------------------------------------------
 #define UDS_SOCKET_PATH "/tmp/config_manager.sock"
 //------------------------------------------------------------------------------
+int uds_open_tcp(int nonblock);
+int uds_listen(int fd, int max_conn);
+int uds_connect(int fd, const char *uds_path);
+int uds_send(int fd, const void *msg, int len);
+int uds_recv(int fd, void *buf, int len);
+//------------------------------------------------------------------------------
 #define LOG(fmt, ...)      fprintf(stdout, fmt, ##__VA_ARGS__)
 
 #if (DEBUG_LEVEL >= 4)
