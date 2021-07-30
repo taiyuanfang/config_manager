@@ -39,6 +39,7 @@ target_link_libraries (${TARGET_NAME}
     config_manager
     jpath
 )
+install_target(${TARGET_NAME} ${DIR_NFS}/bin)
 
 
 set(TARGET_NAME "cmc")
@@ -48,6 +49,7 @@ add_executable(${TARGET_NAME}
 target_link_libraries (${TARGET_NAME}
     config_manager
 )
+install_target(${TARGET_NAME} ${DIR_NFS}/bin)
 
 
 set(TARGET_NAME "example")

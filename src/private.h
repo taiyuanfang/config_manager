@@ -64,6 +64,7 @@ typedef struct {
 #define UDS_SOCKET_PATH "/tmp/config_manager.sock"
 //------------------------------------------------------------------------------
 int uds_open_tcp(int nonblock);
+int uds_bind(int fd, const char *uds_path);
 int uds_listen(int fd, int max_conn);
 int uds_connect(int fd, const char *uds_path);
 int uds_send(int fd, const void *msg, int len);

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <config_manager.h>
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {

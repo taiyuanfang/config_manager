@@ -175,7 +175,7 @@ int cmc_get(const char *filename, const char *xpath, char *str, const char *defa
     return ret;
 }
 //------------------------------------------------------------------------------
-int cmc_get_int(const char *filename, const char *xpath, const int default_value) {
+int cmc_get_i(const char *filename, const char *xpath, const int default_value) {
     int fd = -1;
     int ret = 0;
     cm_req_t req;
